@@ -1,5 +1,6 @@
 package com.example.android.inventoryapp;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -9,6 +10,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    private void insertData() {
+        //add items to database
+    }
+
+    private Cursor queryData() {
+        //use cursor to read from database
     }
 }
 
