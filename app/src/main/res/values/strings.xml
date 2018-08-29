@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Inventory App</string>
+    <string name="dummy">INSERT DUMMY DATA</string>
 </resources>
