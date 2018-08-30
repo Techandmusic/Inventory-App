@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.BookContract;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
@@ -19,22 +21,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDbHelper = new BookDbHelper(this);
+
     }
 
-    public void onClickBtn(View v) {
-        insertData();
-        queryData();
-    }
+
 
     private void insertData() {
+        //Variable for the writable database
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        //Content values object
         ContentValues values = new ContentValues();
+        //Columns to be added to ContentValues
         values.put(BookEntry.COLUMN_PRODUCT_NAME, "Head First Android Development");
         values.put(BookEntry.COLUMN_PRICE, 45.99);
         values.put(BookEntry.COLUMN_QUANTITY, 2);
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, "BookWorld Distribution");
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, "(850)555-1234");
         long newRowID = db.insert(BookEntry.TABLE_NAME, null, values);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        queryData();
+
     }
 
     private void queryData() {

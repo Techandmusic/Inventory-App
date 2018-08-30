@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_spacing"
         android:text="@string/dummy"
-        android:onClick="onClickBtn"/>
+        android:id="@+id/testButton"/>
 
     <TextView
         android:layout_width="wrap_content"
