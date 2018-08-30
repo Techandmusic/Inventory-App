@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.BookContract;
@@ -50,29 +51,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void queryData() {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        String[] Projection = {
+        String[] projection = {
                 BookEntry._ID,
                 BookEntry.COLUMN_PRODUCT_NAME,
                 BookEntry.COLUMN_PRICE,
                 BookEntry.COLUMN_QUANTITY,
                 BookEntry.COLUMN_SUPPLIER_NAME,
-                BookEntry.COLUMN_SUPPLIER_PHONE};
-        Cursor cursor = db.query(BookEntry.TABLE_NAME,
-                Projection,
-                null,
-                null,
-                null,
-                null,
+                BookEntry.COLUMN_SUPPLIER_PHONE };
+
+        Cursor cursor;
+        cursor = db.query(
+                BookEntry.TABLE_NAME,   // The table to query
+                projection,            // The columns to return
+                null,                  // The columns for the WHERE clause
+                null,                  // The values for the WHERE clause
+                null,                  // Don't group the rows
+                null,                  // Don't filter by row groups
                 null);
+        TextView dataView = findViewById(R.id.dataDisplay);
 
         try {
-
+            //Get the name of each index column
             int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
             int productColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
             int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
             int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
             int supplierNameIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
             int supplierPhoneIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE);
+            //Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()){
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentProduct = cursor.getString(productColumnIndex);
@@ -80,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 int currentQuantity = cursor.getInt(quantityColumnIndex);
                 String currentSupplierName = cursor.getString(supplierNameIndex);
                 String currentSupplierPhone = cursor.getString(supplierPhoneIndex);
+                //Display the rows in the TextView
+                dataView.append("\n" + currentID + "-" + currentProduct + "-" + currentPrice + "-"
+                + currentQuantity + "-" + currentSupplierName + "-" + currentSupplierPhone);
             }
         } finally {
             cursor.close();
