@@ -22,7 +22,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
                 + BookEntry.COLUMN_PRODUCT_NAME + " TEXT, "
                 + BookEntry.COLUMN_PRICE + " REAL, "
                 + BookEntry.COLUMN_QUANTITY + " INTEGER, "
-                + BookEntry.COLUMN_SUPPLIER_NAME + "TEXT, "
+                + BookEntry.COLUMN_SUPPLIER_NAME + " TEXT, "
                 + BookEntry.COLUMN_SUPPLIER_PHONE + " TEXT);";
         //Create table using this String
         db.execSQL(SQL_CREATE_BOOKS_TABLE);
