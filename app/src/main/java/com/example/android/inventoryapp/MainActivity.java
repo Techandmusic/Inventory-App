@@ -23,6 +23,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDbHelper = new BookDbHelper(this);
+        Button button = findViewById(R.id.testButton1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertData();
+            }
+        });
+
+        Button button1 = findViewById(R.id.displayButton);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queryData();
+            }
+        });
 
     }
 
@@ -46,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
        // insertData();
-        queryData();
+       // queryData();
 
     }
 
@@ -88,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 String currentSupplierName = cursor.getString(supplierNameIndex);
                 String currentSupplierPhone = cursor.getString(supplierPhoneIndex);
                 //Display the rows in the TextView
-                dataView.append("\n" + currentID + "-" + currentProduct + "-" + currentPrice + "-"
-                + currentQuantity + "-" + currentSupplierName + "-" + currentSupplierPhone);
+                dataView.append("\n" + currentID + ", " + currentProduct + ", " + currentPrice + ", "
+                + currentQuantity + ", " + currentSupplierName + ", " + currentSupplierPhone);
             }
         } finally {
             cursor.close();
