@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDbHelper = new BookDbHelper(this);
+        //OnClick listeners for UI buttons
         Button button = findViewById(R.id.testButton1);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,16 +55,10 @@ public class MainActivity extends AppCompatActivity {
         long newRowID = db.insert(BookEntry.TABLE_NAME, null, values);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // insertData();
-        // queryData();
-
-    }
 
     private void queryData() {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        //Projection specifies which database columns will be used for this query
         String[] projection = {
                 BookEntry._ID,
                 BookEntry.COLUMN_PRODUCT_NAME,
@@ -71,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 BookEntry.COLUMN_QUANTITY,
                 BookEntry.COLUMN_SUPPLIER_NAME,
                 BookEntry.COLUMN_SUPPLIER_PHONE};
-
+        //Cursor declaration
         Cursor cursor;
         cursor = db.query(
                 BookEntry.TABLE_NAME,   // The table to query
@@ -81,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
                 null);
+        //TextView for data to be displayed in
         TextView dataView = findViewById(R.id.dataDisplay);
 
         try {
@@ -104,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         + currentQuantity + ", " + currentSupplierName + ", " + currentSupplierPhone);
             }
         } finally {
+            //Close cursor to prevent memory leaks
             cursor.close();
         }
     }
