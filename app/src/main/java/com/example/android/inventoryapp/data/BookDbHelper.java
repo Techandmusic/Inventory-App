@@ -3,6 +3,7 @@ package com.example.android.inventoryapp.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 
 public class BookDbHelper extends SQLiteOpenHelper {
@@ -31,6 +32,6 @@ public class BookDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    //Do nothing for now
+        //Do nothing for now
     }
 }

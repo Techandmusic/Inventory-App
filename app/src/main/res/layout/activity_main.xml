@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,23 +7,23 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/testButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_spacing"
-        android:text="@string/dummy"
-        android:id="@+id/testButton1"/>
+        android:text="@string/dummy" />
 
     <Button
+        android:id="@+id/displayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/medium_spacing"
-        android:text="@string/show"
-        android:id="@+id/displayButton"/>
+        android:text="@string/show" />
 
     <TextView
+        android:id="@+id/dataDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dataDisplay"
         android:padding="@dimen/medium_spacing" />
 
 </LinearLayout>

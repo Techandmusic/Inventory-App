@@ -3,14 +3,12 @@ package com.example.android.inventoryapp;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.android.inventoryapp.data.BookContract;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 
@@ -42,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void insertData() {
         //Variable for the writable database
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -58,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-       // insertData();
-       // queryData();
+        // insertData();
+        // queryData();
 
     }
 
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 BookEntry.COLUMN_PRICE,
                 BookEntry.COLUMN_QUANTITY,
                 BookEntry.COLUMN_SUPPLIER_NAME,
-                BookEntry.COLUMN_SUPPLIER_PHONE };
+                BookEntry.COLUMN_SUPPLIER_PHONE};
 
         Cursor cursor;
         cursor = db.query(
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             int supplierNameIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
             int supplierPhoneIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE);
             //Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentProduct = cursor.getString(productColumnIndex);
                 Double currentPrice = cursor.getDouble(priceColumnIndex);
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 String currentSupplierPhone = cursor.getString(supplierPhoneIndex);
                 //Display the rows in the TextView
                 dataView.append("\n" + currentID + ", " + currentProduct + ", " + currentPrice + ", "
-                + currentQuantity + ", " + currentSupplierName + ", " + currentSupplierPhone);
+                        + currentQuantity + ", " + currentSupplierName + ", " + currentSupplierPhone);
             }
         } finally {
             cursor.close();
@@ -112,9 +109,3 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-// TODO Write queryData method that uses a Cursor to read data from the database DONE
-// TODO Write insertData method to add items to the database DONE
-// TODO Write Contract Class that defines name of table and constants DONE
-// TODO Inside Contract Class add inner class for each table created DONE
-// TODO Write DbHelper Class which extends SQLIteOpenHelper class and overrides onCreate and onUpgrade DONE
-// TODO Add some code to test that SQLite commands are working properly DONE
