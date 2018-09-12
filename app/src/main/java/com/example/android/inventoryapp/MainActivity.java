@@ -119,4 +119,5 @@ public class MainActivity extends AppCompatActivity {
 //TODO Setup Delete Button in product detail view
 //TODO Setup Order Button in product detail view that uses a phone intent with supplier phone number
 //TODO Add Default TextView for when database is empty
+//TODO Add ViewPager
 
