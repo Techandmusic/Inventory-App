@@ -21,22 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDbHelper = new BookDbHelper(this);
-        //OnClick listeners for UI buttons
-        Button button = findViewById(R.id.testButton1);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                insertData();
-            }
-        });
 
-        Button button1 = findViewById(R.id.displayButton);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queryData();
-            }
-        });
+
 
     }
 
