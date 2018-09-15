@@ -99,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
 //TODO Setup Update Method
 //TODO Setup Delete Method
 //TODO Setup Proper Create Method
-//TODO Setup "Sale" Button that reduces quantity of product by one
+//TODO Setup "Sale" Button in list item that reduces quantity of product by one
 //TODO Setup logic so that no negative quantities are displayed
-//TODO Setup Increase and Decrease qunatity buttons in product detail view
+//TODO Setup Increase and Decrease quantity buttons in product detail view
 //TODO Setup Delete Button in product detail view
 //TODO Setup Order Button in product detail view that uses a phone intent with supplier phone number
 //TODO Add Default TextView for when database is empty
