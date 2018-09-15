@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
                 null);
-        //TextView for data to be displayed in
-        TextView dataView = findViewById(R.id.dataDisplay);
+
 
         try {
             //Get the name of each index column
@@ -82,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 String currentSupplierName = cursor.getString(supplierNameIndex);
                 String currentSupplierPhone = cursor.getString(supplierPhoneIndex);
                 //Display the rows in the TextView
-                dataView.append("\n" + currentID + ", " + currentProduct + ", " + currentPrice + ", "
-                        + currentQuantity + ", " + currentSupplierName + ", " + currentSupplierPhone);
+
             }
         } finally {
             //Close cursor to prevent memory leaks
