@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="InputStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/max_width</item>
+        <item name="android:paddingTop">@dimen/medium_spacing</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
 </resources>

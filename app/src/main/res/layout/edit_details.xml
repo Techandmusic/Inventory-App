@@ -5,7 +5,33 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/addTitle"
+        style="@style/InputStyle"
+        android:hint="@string/title_field"/>
+
+    <EditText
+        android:id="@+id/addAuthor"
+        style="@style/InputStyle"
+        android:hint="@string/author_field"/>
+
+    <EditText
+        android:id="@+id/addPrice"
+        style="@style/InputStyle"
+        android:hint="@string/price_field"/>
+
+    <EditText
+        android:id="@+id/addQuantity"
+        style="@style/InputStyle"
+        android:hint="@string/quantity_field"/>
+
+    <EditText
+        android:id="@+id/addSupplierName"
+        style="@style/InputStyle"
+        android:hint="@string/supplier_name_field"/>
+
+    <EditText
+        android:id="@+id/addSupplierNo"
+        style="@style/InputStyle"
+        android:hint="@string/supplier_phone_field"/>
 
 </LinearLayout>
