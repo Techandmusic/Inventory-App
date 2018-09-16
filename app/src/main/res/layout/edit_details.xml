@@ -35,3 +35,4 @@
         android:hint="@string/supplier_phone_field"/>
 
 </LinearLayout>
+

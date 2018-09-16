@@ -11,6 +11,12 @@
         android:padding="@dimen/small_spacing" />
 
     <TextView
+        android:id="@+id/bookAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/small_spacing" />
+
+    <TextView
         android:id="@+id/bookPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
