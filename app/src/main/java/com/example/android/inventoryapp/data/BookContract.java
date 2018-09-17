@@ -19,6 +19,8 @@ public final class BookContract {
         public static final String COLUMN_QUANTITY = "Quantity";
         public static final String COLUMN_SUPPLIER_NAME = "Supplier_Name";
         public static final String COLUMN_SUPPLIER_PHONE = "Supplier_Phone_Number";
+        //Content URI
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_BOOKS);
 
         //MIME type constants
         //MIME type for a list of books

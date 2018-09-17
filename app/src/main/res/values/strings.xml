@@ -8,5 +8,7 @@
     <string name="quantity_field">Quantity</string>
     <string name="supplier_name_field">Supplier Name</string>
     <string name="supplier_phone_field">Supplier Phone No</string>
+    <string name="save_error">Error with saving book</string>
+    <string name="save_successful">Book saved with row id: </string>
 
 </resources>
