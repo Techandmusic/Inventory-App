@@ -80,6 +80,18 @@ public class BookProvider extends ContentProvider {
         return null;
     }
 
+    private Uri insertBook(Uri uri, ContentValues values){
+        //Make sure the title field is not null
+        String title = values.getAsString(BookContract.BookEntry.COLUMN_PRODUCT_NAME);
+        if (title == null) {
+            throw new IllegalArgumentException("Book requires a title");
+        }
+        String author = values.getAsString(BookContract.BookEntry.COLUMN_AUTHOR_NAME);
+        if (author == null) {
+            throw new IllegalArgumentException("You must enter an author");
+        }
+    }
+
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
