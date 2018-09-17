@@ -132,7 +132,32 @@ public class BookProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        int rowsDeleted;
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case BOOKS:
+                //Delete all rows that match the selection and selectionArgs
+                rowsDeleted = db.delete(BookContract.BookEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case BOOK_ID:
+                //Delete a single row based on ID from the Uri
+                selection = BookContract.BookEntry._ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = db.delete(BookContract.BookEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Delete is not supported for " + uri);
+        }
+
+        //If 1 or more rows were deleted notify all listeneres that the data has changed
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsDeleted;
+
+
     }
 
     @Override
