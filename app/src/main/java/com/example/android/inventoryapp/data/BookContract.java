@@ -1,5 +1,6 @@
 package com.example.android.inventoryapp.data;
 
+import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -18,5 +19,15 @@ public final class BookContract {
         public static final String COLUMN_QUANTITY = "Quantity";
         public static final String COLUMN_SUPPLIER_NAME = "Supplier_Name";
         public static final String COLUMN_SUPPLIER_PHONE = "Supplier_Phone_Number";
+
+        //MIME type constants
+        //MIME type for a list of books
+        public static final String CONTENT_LIST_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + PATH_BOOKS;
+        //MIME type for a single book
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + PATH_BOOKS;
     }
+
+
 }
