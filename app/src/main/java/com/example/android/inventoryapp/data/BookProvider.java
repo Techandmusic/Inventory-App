@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -77,11 +78,18 @@ public class BookProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        return null;
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case BOOKS:
+                return insertBook(uri, values);
+            default:
+                throw new IllegalArgumentException("Insertion is not supported for " + uri);
+
+        }
     }
 
     private Uri insertBook(Uri uri, ContentValues values){
-        //Make sure the title field is not null
+        //Extract values making sure that fields are not null
         String title = values.getAsString(BookContract.BookEntry.COLUMN_PRODUCT_NAME);
         if (title == null) {
             throw new IllegalArgumentException("Book requires a title");
@@ -90,6 +98,36 @@ public class BookProvider extends ContentProvider {
         if (author == null) {
             throw new IllegalArgumentException("You must enter an author");
         }
+        Double price = values.getAsDouble(BookContract.BookEntry.COLUMN_PRICE);
+        if (price == null) {
+            throw new IllegalArgumentException("Please enter sale price or 0.00 if book is free");
+        }
+        int quantity = values.getAsInteger(BookContract.BookEntry.COLUMN_QUANTITY);
+        if (quantity == 0) {
+            throw new IllegalArgumentException("Please enter quantity in stock");
+        }
+        String supplierName = values.getAsString(BookContract.BookEntry.COLUMN_SUPPLIER_NAME);
+        if (supplierName == null) {
+            throw new IllegalArgumentException("Please enter name of supplier");
+        }
+        String supplierPhone = values.getAsString(BookContract.BookEntry.COLUMN_SUPPLIER_PHONE);
+        if (supplierPhone == null) {
+            throw new IllegalArgumentException("Please enter phone number for supplier");
+        }
+        //Get writable database
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        long id = db.insert(BookContract.BookEntry.TABLE_NAME, null, values);
+
+        if (id == -1) {
+            Log.e(LOG_TAG, "Failed to insert row for: " + uri );
+            return null;
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        return ContentUris.withAppendedId(uri, id);
+
     }
 
     @Override
