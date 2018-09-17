@@ -50,13 +50,13 @@ public class BookProvider extends ContentProvider {
         //Figure out if the uri matcher matches a specific code
         int match = sUriMatcher.match(uri);
         switch (match) {
-            case BOOKS
+            case BOOKS:
                 cursor = db.query(BookContract.BookEntry.TABLE_NAME, projection, selection, selectionArgs, null,
                         null, sortOrder);
             break;
-            case BOOK_ID
+            case BOOK_ID:
                 selection = BookContract.BookEntry._ID + "=?";
-                selectionArgs = new String[] String.valueOf(ContentUris.parseId(uri));
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
                 cursor = db.query(BookContract.BookEntry.TABLE_NAME, projection, selection, selectionArgs, null,
                         null, sortOrder);
                 break;
