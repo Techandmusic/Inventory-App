@@ -137,7 +137,69 @@ public class BookProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case BOOKS:
+                return updateBook(uri, values, selection, selectionArgs);
+            case BOOK_ID:
+                //Extract ID from Uri so we know whcih row to update
+                selection = BookContract.BookEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri))};
+                return updateBook(uri, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
+    }
+
+    private int updateBook(Uri uri, ContentValues values, String selection, String[] selctionArgs) {
+        if (values.containsKey(BookContract.BookEntry.COLUMN_PRODUCT_NAME)) {
+            String title = values.getAsString(BookContract.BookEntry.COLUMN_PRODUCT_NAME);
+            if (title == null) {
+                throw new IllegalArgumentException("Book must have a valid title");
+            }
+        }
+        if (values.containsKey(BookContract.BookEntry.COLUMN_AUTHOR_NAME)) {
+            String author = values.getAsString(BookContract.BookEntry.COLUMN_AUTHOR_NAME);
+            if (author == null) {
+                throw new IllegalArgumentException("Book must have an author");
+            }
+        }
+        if (values.containsKey(BookContract.BookEntry.COLUMN_PRICE)) {
+            Double price = values.getAsDouble(BookContract.BookEntry.COLUMN_PRICE);
+            if (price == null) {
+                throw new IllegalArgumentException("Please enter sale price or 0.00 if book is free");
+            }
+        }
+        if (values.containsKey(BookContract.BookEntry.COLUMN_QUANTITY)) {
+            int quantity = values.getAsInteger(BookContract.BookEntry.COLUMN_QUANTITY);
+            if (quantity == 0) {
+                throw new IllegalArgumentException("Please enter quantity in stock");
+            }
+        }
+        if (values.containsKey(BookContract.BookEntry.COLUMN_SUPPLIER_NAME)) {
+            String supplierName = values.getAsString(BookContract.BookEntry.COLUMN_SUPPLIER_NAME);
+            if (supplierName == null) {
+                throw new IllegalArgumentException("Please enter supplier name");
+            }
+        }
+        if (values.containsKey(BookContract.BookEntry.COLUMN_SUPPLIER_PHONE)) {
+            String supplierPhone = values.getAsString(BookContract.BookEntry.COLUMN_SUPPLIER_PHONE);
+            if (supplierPhone == null) {
+                throw new IllegalArgumentException("Please enter phone nuber for supplier");
+            }
+        }
+
+        if (values.size() == 0) {
+            return 0;
+        }
+        //Otherwise get a writable database to update the data
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        int rowsUpdated = db.update(BookContract.BookEntry.TABLE_NAME, values, selection, selctionArgs);
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsUpdated;
     }
 
 
