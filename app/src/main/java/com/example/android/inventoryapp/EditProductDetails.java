@@ -1,7 +1,9 @@
 package com.example.android.inventoryapp;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -99,6 +101,34 @@ public class EditProductDetails extends Fragment {
 
 
 
+
+
+
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.confirm_delete);
+        builder.setPositiveButton(R.string.delete_dialog_option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteBook();
+            }
+        });
+        builder.setNegativeButton(R.string.negative_dialog_option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+
+
+    }
+
+    private void deleteBook() {
 
     }
 
