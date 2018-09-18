@@ -129,6 +129,14 @@ public class EditProductDetails extends Fragment {
     }
 
     private void deleteBook() {
+        if (mCurrentBookUri != null) {
+            int rowsDeleted = getContext().getContentResolver().delete(mCurrentBookUri, null, null);
+            if (rowsDeleted == 0) {
+                Toast.makeText(getContext(), R.string.delete_failed, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), R.string.delete_succesful, Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 
