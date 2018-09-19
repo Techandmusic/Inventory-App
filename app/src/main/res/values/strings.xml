@@ -20,5 +20,6 @@
     <string name="order_button">Order</string>
     <string name="delete_button">Delete</string>
     <string name="sale_button">Sale</string>
+    <string name="default_text">Tap Add Button to Add Items</string>
 
 </resources>

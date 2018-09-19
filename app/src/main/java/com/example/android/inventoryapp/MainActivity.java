@@ -96,6 +96,6 @@ public class MainActivity extends AppCompatActivity {
 //TODO Setup Increase and Decrease quantity buttons in product detail view
 //TODO Setup Delete Button in product detail view
 //TODO Setup Order Button in product detail view that uses a phone intent with supplier phone number
-//TODO Add Default TextView for when database is empty
 //TODO Add ViewPager
+//TODO Add Button to activity_main.xml to ad inventory to database
 
