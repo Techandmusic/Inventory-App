@@ -19,5 +19,6 @@
     <string name="decrease_button">Decresea Quantity</string>
     <string name="order_button">Order</string>
     <string name="delete_button">Delete</string>
+    <string name="sale_button">Sale</string>
 
 </resources>

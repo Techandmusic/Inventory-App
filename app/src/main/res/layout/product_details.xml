@@ -42,11 +42,13 @@
 
         <Button
             style="@style/button_style"
-            android:text="@string/increase_button"/>
+            android:text="@string/increase_button"
+            android:id="@+id/increase"/>
 
         <Button
             style="@style/button_style"
-            android:text="@string/decrease_button"/>
+            android:text="@string/decrease_button"
+            android:id="@+id/decrease"/>
 
     </LinearLayout>
 
@@ -64,11 +66,13 @@
 
         <Button
             style="@style/button_style"
-            android:text="@string/order_button"/>
+            android:text="@string/order_button"
+            android:id="@+id/order"/>
 
         <Button
             style="@style/button_style"
-            android:text="@string/delete_button"/>
+            android:text="@string/delete_button"
+            android:id="@+id/delete"/>
 
     </LinearLayout>
 
