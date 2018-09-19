@@ -3,23 +3,23 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/list_item_style"
         android:id="@+id/productName"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/productPrice"/>
+        style="@style/list_item_style"
+        android:id="@+id/productPrice"
+        android:layout_below="@id/productName"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/productQuantity"/>
+        style="@style/list_item_style"
+        android:id="@+id/productQuantity"
+        android:layout_below="@id/productPrice"/>
 
     <Button
         style="@style/button_style"
         android:text="@string/sale_button"
-        android:id="@+id/sale"/>
+        android:id="@+id/sale"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>
