@@ -50,6 +50,22 @@
 
 
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/medium_spacing">
+
+        <Button
+            style="@style/button_style"
+            android:text="@string/order_button"/>
+
+        <Button
+            style="@style/button_style"
+            android:text="@string/delete_button"/>
+
     </LinearLayout>
 
 </RelativeLayout>

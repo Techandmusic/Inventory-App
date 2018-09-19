@@ -17,5 +17,7 @@
     <string name="delete_failed">Error with deleting book</string>
     <string name="increase_button">Increase Quantity</string>
     <string name="decrease_button">Decresea Quantity</string>
+    <string name="order_button">Order</string>
+    <string name="delete_button">Delete</string>
 
 </resources>
