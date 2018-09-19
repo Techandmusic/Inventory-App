@@ -2,7 +2,6 @@ package com.example.android.inventoryapp;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -14,30 +13,34 @@ import android.widget.Toast;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 
-import org.w3c.dom.Text;
-
 import butterknife.BindView;
 
 public class EditProductDetails extends Fragment {
 
-    //Database helper instance
-    private BookDbHelper mDbHelper;
     //EditText field to add book title
-    @BindView(R.id.addTitle) EditText title;
+    @BindView(R.id.addTitle)
+    EditText title;
     //EditText field to add book author
-    @BindView(R.id.addAuthor) EditText author;
+    @BindView(R.id.addAuthor)
+    EditText author;
     //EditText field to add book price
-    @BindView(R.id.addPrice) EditText price;
+    @BindView(R.id.addPrice)
+    EditText price;
     //EditText field to add quantity of book in stock
-    @BindView(R.id.addQuantity) EditText quantity;
+    @BindView(R.id.addQuantity)
+    EditText quantity;
     //EditText field to add name of supplier for book
-    @BindView(R.id.addSupplierName) EditText supplierName;
+    @BindView(R.id.addSupplierName)
+    EditText supplierName;
     //EditText field to add supplier's phone number
-    @BindView(R.id.addSupplierNo) EditText supplierNo;
-    //Variable for current book uri
-    private Uri mCurrentBookUri;
+    @BindView(R.id.addSupplierNo)
+    EditText supplierNo;
     //Variable for rows affected when adding a new book
     int rowsAffected;
+    //Database helper instance
+    private BookDbHelper mDbHelper;
+    //Variable for current book uri
+    private Uri mCurrentBookUri;
 
     public EditProductDetails() {
 
@@ -91,17 +94,8 @@ public class EditProductDetails extends Fragment {
         if (rowsAffected == 0) {
             Toast.makeText(getContext(), getString(R.string.save_error), Toast.LENGTH_SHORT).show();
         } else {
-           Toast.makeText(getContext(), getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
         }
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -125,7 +119,6 @@ public class EditProductDetails extends Fragment {
         });
 
 
-
     }
 
     private void deleteBook() {
@@ -141,3 +134,5 @@ public class EditProductDetails extends Fragment {
     }
 
 }
+
+//TODO Implement loader and callback methods

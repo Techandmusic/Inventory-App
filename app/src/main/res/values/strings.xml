@@ -15,5 +15,7 @@
     <string name="negative_dialog_option">Cancel</string>
     <string name="delete_succesful">Book deleted</string>
     <string name="delete_failed">Error with deleting book</string>
+    <string name="increase_button">Increase Quantity</string>
+    <string name="decrease_button">Decresea Quantity</string>
 
 </resources>

@@ -91,12 +91,7 @@ public class MainActivity extends AppCompatActivity {
 }
 
 //TODO Create "Add Inventory" Fragment
-//TODO Create "Edit Product Details" Fragment
-//TODO Create "View Product Details" Fragment
 //TODO Setup Query Method to display all invnetory in MainActivity
-//TODO Setup Update Method
-//TODO Setup Delete Method
-//TODO Setup Proper Create Method
 //TODO Setup "Sale" Button in list item that reduces quantity of product by one
 //TODO Setup logic so that no negative quantities are displayed
 //TODO Setup Increase and Decrease quantity buttons in product detail view
