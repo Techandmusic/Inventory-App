@@ -7,14 +7,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 
 public class MainActivity extends AppCompatActivity {
-
+    //Database helper object
     private BookDbHelper mDbHelper;
+    //ListView for books
+    private ListView productView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
