@@ -42,7 +42,7 @@ public class BookCursorAdapter extends CursorAdapter {
 
         //Set variables to TextViews
         titleTextView.setText(bookTitle);
-        priceTextView.setText(bookPrice.toString());
+        priceTextView.setText(Double.toString(bookPrice));
         quantityTextView.setText(bookQuantity);
     }
 }
