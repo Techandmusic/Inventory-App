@@ -1,9 +1,13 @@
 package com.example.android.inventoryapp;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private BookDbHelper mDbHelper;
     //ListView for books
     private ListView productView;
+    //CursorAdapter
+    private CursorAdapter mCursorAdapter;
+    //Loader constant
+    private static final int BOOK_LOADER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,51 +53,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void queryData() {
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        //Projection specifies which database columns will be used for this query
+
+
+
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
                 BookEntry._ID,
                 BookEntry.COLUMN_PRODUCT_NAME,
                 BookEntry.COLUMN_PRICE,
-                BookEntry.COLUMN_QUANTITY,
-                BookEntry.COLUMN_SUPPLIER_NAME,
-                BookEntry.COLUMN_SUPPLIER_PHONE};
-        //Cursor declaration
-        Cursor cursor;
-        cursor = db.query(
-                BookEntry.TABLE_NAME,   // The table to query
-                projection,            // The columns to return
-                null,                  // The columns for the WHERE clause
-                null,                  // The values for the WHERE clause
-                null,                  // Don't group the rows
-                null,                  // Don't filter by row groups
-                null);
+                BookEntry.COLUMN_QUANTITY
+        };
+        return new CursorLoader(this, BookEntry.CONTENT_URI, projection, null, null, null);
+    }
 
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mCursorAdapter.swapCursor(cursor);
+    }
 
-        try {
-            //Get the name of each index column
-            int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
-            int productColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
-            int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
-            int supplierNameIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
-            int supplierPhoneIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE);
-            //Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()) {
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentProduct = cursor.getString(productColumnIndex);
-                Double currentPrice = cursor.getDouble(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                String currentSupplierName = cursor.getString(supplierNameIndex);
-                String currentSupplierPhone = cursor.getString(supplierPhoneIndex);
-                //Display the rows in the TextView
-
-            }
-        } finally {
-            //Close cursor to prevent memory leaks
-            cursor.close();
-        }
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
     }
 }
 
