@@ -17,13 +17,15 @@ import android.widget.TextView;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     //Database helper object
     private BookDbHelper mDbHelper;
     //ListView for books
     private ListView productView;
     //CursorAdapter
-    private CursorAdapter mCursorAdapter;
+    private BookCursorAdapter mCursorAdapter;
     //Loader constant
     private static final int BOOK_LOADER = 0;
 
@@ -31,7 +33,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Instantiate DbHelper object
         mDbHelper = new BookDbHelper(this);
+        //Instantiate ListView
+        ListView bookListView = (ListView) findViewById(R.id.mainList);
+        //Set emptyView
+        View emptyView = (TextView) findViewById(R.id.defaultText);
+        bookListView.setEmptyView(emptyView);
+        //Instantiate CursorAdapter
+        mCursorAdapter = new BookCursorAdapter(this, null);
+        //Call set adapter method on ListView
+        bookListView.setAdapter(mCursorAdapter);
+
 
 
 
