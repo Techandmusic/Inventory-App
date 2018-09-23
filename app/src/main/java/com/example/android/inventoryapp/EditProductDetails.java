@@ -5,7 +5,10 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,8 +17,9 @@ import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class EditProductDetails extends Fragment {
+public class EditProductDetails extends AppCompatActivity {
 
     //EditText field to add book title
     @BindView(R.id.addTitle)
@@ -42,8 +46,10 @@ public class EditProductDetails extends Fragment {
     //Variable for current book uri
     private Uri mCurrentBookUri;
 
-    public EditProductDetails() {
-
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 
     private void saveBook() {
@@ -85,23 +91,23 @@ public class EditProductDetails extends Fragment {
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supPhoneString);
 
         if (mCurrentBookUri == null) {
-            Uri newUri = getContext().getContentResolver().insert(BookEntry.CONTENT_URI, values);
+            Uri newUri = this.getContentResolver().insert(BookEntry.CONTENT_URI, values);
         } else {
-            rowsAffected = getContext().getContentResolver().update(mCurrentBookUri, values, null, null);
+            rowsAffected = this.getContentResolver().update(mCurrentBookUri, values, null, null);
         }
 
         //Display toast message to show if save was successful or not
         if (rowsAffected == 0) {
-            Toast.makeText(getContext(), getString(R.string.save_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.save_error), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
     private void showDeleteConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.confirm_delete);
         builder.setPositiveButton(R.string.delete_dialog_option, new DialogInterface.OnClickListener() {
             @Override
@@ -123,11 +129,11 @@ public class EditProductDetails extends Fragment {
 
     private void deleteBook() {
         if (mCurrentBookUri != null) {
-            int rowsDeleted = getContext().getContentResolver().delete(mCurrentBookUri, null, null);
+            int rowsDeleted = this.getContentResolver().delete(mCurrentBookUri, null, null);
             if (rowsDeleted == 0) {
-                Toast.makeText(getContext(), R.string.delete_failed, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.delete_failed, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext(), R.string.delete_succesful, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.delete_succesful, Toast.LENGTH_SHORT).show();
             }
         }
 
