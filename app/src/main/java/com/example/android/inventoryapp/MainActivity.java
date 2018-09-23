@@ -1,11 +1,14 @@
 package com.example.android.inventoryapp;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,7 +17,7 @@ import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
-
+import android.widget.AdapterView;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //Database helper object
     private BookDbHelper mDbHelper;
@@ -35,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //Open EditProductDetails Fragment
+                Intent editorIntent = new Intent(MainActivity.this, EditProductDetails.class);
+                startActivity(editorIntent);
             }
         });
 
@@ -51,6 +55,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mCursorAdapter = new BookCursorAdapter(this, null);
         //Call set adapter method on ListView
         bookListView.setAdapter(mCursorAdapter);
+
+        //Set onItemClickListener for ListView
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailsIntent = new Intent(MainActivity.this, ProductDetailsActivity.class);
+                //Set Uri with appended id
+                Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
+                //Call intent.setData method with uri passed as argument
+                detailsIntent.setData(currentBookUri);
+                //call startActivity
+                startActivity(detailsIntent);
+            }
+        });
+
+        getLoaderManager().initLoader(BOOK_LOADER, null, this);
 
 
 

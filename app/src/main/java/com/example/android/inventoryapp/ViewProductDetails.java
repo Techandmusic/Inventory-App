@@ -26,6 +26,7 @@ public class ViewProductDetails extends Fragment {
     @BindView(R.id.bookQuantity) TextView bookQuantity;
     //TextView for book supplier name
     @BindView(R.id.bookSupplier) TextView bookSupplier;
+    //Current uri variable
 
 
 

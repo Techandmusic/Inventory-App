@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
-
+import android.widget.AdapterView;
 import com.example.android.inventoryapp.data.BookContract;
 
 import butterknife.BindView;
