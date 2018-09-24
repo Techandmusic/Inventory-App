@@ -43,6 +43,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
     private BookDbHelper mDbHelper;
     //Variable for rows being deleted
     private int rowsDeleted;
+    //Variable for rows updated
+    private int rowsAffected;
 
 
 
@@ -127,6 +129,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         int quantityNumber = Integer.parseInt(quantityText);
         //Add 1 to current TextView Text
         int newQuantity = quantityNumber - 1;
+        if (newQuantity < 0) {
+            newQuantity = 0;
+        }
         //Convert new number to a string
         String newText = Integer.toString(newQuantity);
         //Set the updated quantity text to the TextView
