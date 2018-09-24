@@ -47,21 +47,16 @@
         android:padding="@dimen/medium_spacing">
 
         <Button
+            android:id="@+id/increase"
             style="@style/button_style"
-            android:text="@string/increase_button"
-            android:id="@+id/increase"/>
+            android:text="@string/increase_button" />
 
         <Button
+            android:id="@+id/decrease"
             style="@style/button_style"
-            android:text="@string/decrease_button"
-            android:id="@+id/decrease"/>
+            android:text="@string/decrease_button" />
 
     </LinearLayout>
-
-
-
-
-
 
 
     <LinearLayout
@@ -71,14 +66,14 @@
         android:padding="@dimen/medium_spacing">
 
         <Button
+            android:id="@+id/order"
             style="@style/button_style"
-            android:text="@string/order_button"
-            android:id="@+id/order"/>
+            android:text="@string/order_button" />
 
         <Button
+            android:id="@+id/delete"
             style="@style/button_style"
-            android:text="@string/delete_button"
-            android:id="@+id/delete"/>
+            android:text="@string/delete_button" />
 
     </LinearLayout>
 

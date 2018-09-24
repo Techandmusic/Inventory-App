@@ -1,11 +1,8 @@
 package com.example.android.inventoryapp.data;
 
 import android.content.ContentProvider;
-import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,8 +10,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
-import java.util.ArrayList;
 
 public class BookProvider extends ContentProvider {
     //Tag for log messages
@@ -25,11 +20,13 @@ public class BookProvider extends ContentProvider {
     private static final int BOOK_ID = 101;
     //URI matcher object
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
     //Static initializer
     static {
         sUriMatcher.addURI(BookContract.CONTENT_AUTHORITY, BookContract.PATH_BOOKS, BOOKS);
         sUriMatcher.addURI(BookContract.CONTENT_AUTHORITY, BookContract.PATH_BOOKS + "/#", BOOK_ID);
     }
+
     //Initializer provider and database helper
     private BookDbHelper mDbHelper;
 
@@ -54,10 +51,10 @@ public class BookProvider extends ContentProvider {
             case BOOKS:
                 cursor = db.query(BookContract.BookEntry.TABLE_NAME, projection, selection, selectionArgs, null,
                         null, sortOrder);
-            break;
+                break;
             case BOOK_ID:
                 selection = BookContract.BookEntry._ID + "=?";
-                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 cursor = db.query(BookContract.BookEntry.TABLE_NAME, projection, selection, selectionArgs, null,
                         null, sortOrder);
                 break;
@@ -97,7 +94,7 @@ public class BookProvider extends ContentProvider {
         }
     }
 
-    private Uri insertBook(Uri uri, ContentValues values){
+    private Uri insertBook(Uri uri, ContentValues values) {
         //Extract values making sure that fields are not null
         String title = values.getAsString(BookContract.BookEntry.COLUMN_PRODUCT_NAME);
         if (title == null) {
@@ -129,7 +126,7 @@ public class BookProvider extends ContentProvider {
         long id = db.insert(BookContract.BookEntry.TABLE_NAME, null, values);
 
         if (id == -1) {
-            Log.e(LOG_TAG, "Failed to insert row for: " + uri );
+            Log.e(LOG_TAG, "Failed to insert row for: " + uri);
             return null;
         }
 
@@ -153,7 +150,7 @@ public class BookProvider extends ContentProvider {
             case BOOK_ID:
                 //Delete a single row based on ID from the Uri
                 selection = BookContract.BookEntry._ID + "=?";
-                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = db.delete(BookContract.BookEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
@@ -178,7 +175,7 @@ public class BookProvider extends ContentProvider {
             case BOOK_ID:
                 //Extract ID from Uri so we know whcih row to update
                 selection = BookContract.BookEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateBook(uri, values, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);

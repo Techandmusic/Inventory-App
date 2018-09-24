@@ -6,12 +6,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-   <ListView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/mainList">
+    <ListView
+        android:id="@+id/mainList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-   </ListView>
+    </ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -20,8 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/medium_spacing"
-        android:src="@drawable/ic_add_circle"/>
-
+        android:src="@drawable/ic_add_circle" />
 
 
     <TextView
@@ -29,10 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/medium_spacing"
-        android:text="@string/default_text"/>
-
-
-
+        android:text="@string/default_text" />
 
 
 </RelativeLayout>

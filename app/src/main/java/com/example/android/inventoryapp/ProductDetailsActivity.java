@@ -15,35 +15,37 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.inventoryapp.data.BookContract;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
-import com.example.android.inventoryapp.data.BookProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductDetailsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    //TextView for book title
-    @BindView(R.id.bookTitle) TextView bookTitle;
-    //TextView for book author
-    @BindView(R.id.bookAuthor) TextView bookAuthor;
-    //TextView for book price
-    @BindView(R.id.bookPrice) TextView bookPrice;
-    //TextView for book quantity
-    @BindView(R.id.bookQuantity) TextView bookQuantity;
-    //TextView for book supplier name
-    @BindView(R.id.bookSupplier) TextView bookSupplier;
-    //TextView for book supplier phone number
-    @BindView(R.id.bookSupPhone) TextView bookSupPhone;
-    //Current uri
-    private Uri mCurrentBookUri;
     //Loader ID for Details Activity
     private static final int DETAILS_LOADER = 0;
+    //TextView for book title
+    @BindView(R.id.bookTitle)
+    TextView bookTitle;
+    //TextView for book author
+    @BindView(R.id.bookAuthor)
+    TextView bookAuthor;
+    //TextView for book price
+    @BindView(R.id.bookPrice)
+    TextView bookPrice;
+    //TextView for book quantity
+    @BindView(R.id.bookQuantity)
+    TextView bookQuantity;
+    //TextView for book supplier name
+    @BindView(R.id.bookSupplier)
+    TextView bookSupplier;
+    //TextView for book supplier phone number
+    @BindView(R.id.bookSupPhone)
+    TextView bookSupPhone;
+    //Current uri
+    private Uri mCurrentBookUri;
     //Database Helper Instance
     private BookDbHelper mDbHelper;
-
-
 
 
     @Override
@@ -75,10 +77,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         });
 
 
-
-
-
-
         Button order = (Button) findViewById(R.id.order);
         order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +89,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         });
 
 
-
         Button delete = (Button) findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +96,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
                 deleteBook();
             }
         });
-
-
 
 
         //Initialize loader
@@ -144,7 +139,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
             if (rowsDeleted == 0) {
                 Toast.makeText(this, getString(R.string.delete_failed), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, getString(R.string.delete_succesful), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.delete_successful), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -164,9 +159,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
             Toast.makeText(this, getString(R.string.save_error), Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 
 
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -212,7 +204,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
             bookQuantity.setText(Integer.toString(quantity));
             bookSupplier.setText(supplierName);
             bookSupPhone.setText(supplierPhone);
-         }
+        }
 
 
     }

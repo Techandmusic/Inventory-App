@@ -10,26 +10,27 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.design.widget.FloatingActionButton;
-import com.example.android.inventoryapp.data.BookContract.BookEntry;
-import com.example.android.inventoryapp.data.BookDbHelper;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.example.android.inventoryapp.data.BookContract.BookEntry;
+import com.example.android.inventoryapp.data.BookDbHelper;
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    //Loader constant
+    private static final int BOOK_LOADER = 0;
     //Database helper object
     private BookDbHelper mDbHelper;
     //ListView for books
     private ListView productView;
     //CursorAdapter
     private BookCursorAdapter mCursorAdapter;
-    //Loader constant
-    private static final int BOOK_LOADER = 0;
     //TextView for Book Quantity
     private TextView bookQuantity;
     //TextView for book title
@@ -92,10 +93,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
-
         getLoaderManager().initLoader(BOOK_LOADER, null, this);
-
-
 
 
     }
@@ -115,8 +113,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //Set the updated quantity text to the TextView
         bookQuantity.setText(newText);
     }
-
-
 
 
     private void insertData() {
@@ -148,9 +144,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Toast.makeText(this, getString(R.string.save_error), Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 
 
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {

@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.EditText;
@@ -26,6 +25,10 @@ import butterknife.ButterKnife;
 
 public class EditProductDetails extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    //Loader constant
+    private static final int EXISTING_BOOK_LOADER = 0;
+    //Default for price fields
+    private static final double DEFAULT_PRICE = 0.00;
     //EditText field to add book title
     @BindView(R.id.addTitle)
     EditText mTitle;
@@ -50,10 +53,6 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
     private BookDbHelper mDbHelper;
     //Variable for current book uri
     private Uri mCurrentBookUri;
-    //Loader constant
-    private static final int EXISTING_BOOK_LOADER = 0;
-    //Default for price fields
-    private static final double DEFAULT_PRICE = 0.00;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,7 +143,7 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
             if (rowsDeleted == 0) {
                 Toast.makeText(this, R.string.delete_failed, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, R.string.delete_succesful, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.delete_successful, Toast.LENGTH_SHORT).show();
             }
         }
 

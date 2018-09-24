@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/detailParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/detailParent">
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/addTitle"
         style="@style/InputStyle"
-        android:inputType="textCapWords"
-        android:hint="@string/title_field"/>
+        android:hint="@string/title_field"
+        android:inputType="textCapWords" />
 
     <EditText
         android:id="@+id/addAuthor"
         style="@style/InputStyle"
-        android:inputType="textCapWords"
-        android:hint="@string/author_field"/>
+        android:hint="@string/author_field"
+        android:inputType="textCapWords" />
 
     <EditText
         android:id="@+id/addPrice"
         style="@style/InputStyle"
-        android:inputType="numberDecimal"
-        android:hint="@string/price_field"/>
+        android:hint="@string/price_field"
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/addQuantity"
         style="@style/InputStyle"
-        android:inputType="number"
-        android:hint="@string/quantity_field"/>
+        android:hint="@string/quantity_field"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/addSupplierName"
         style="@style/InputStyle"
-        android:inputType="textCapWords"
-        android:hint="@string/supplier_name_field"/>
+        android:hint="@string/supplier_name_field"
+        android:inputType="textCapWords" />
 
     <EditText
         android:id="@+id/addSupplierNo"
         style="@style/InputStyle"
-        android:inputType="phone"
-        android:hint="@string/supplier_phone_field"/>
+        android:hint="@string/supplier_phone_field"
+        android:inputType="phone" />
 
 </LinearLayout>
 
