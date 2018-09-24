@@ -1,6 +1,7 @@
 package com.example.android.inventoryapp;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -63,6 +64,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
             @Override
             public void onClick(View v) {
                 addQuantity();
+                updateBookInfo();
             }
         });
 
@@ -71,6 +73,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
             @Override
             public void onClick(View v) {
                 subtractQuantity();
+                updateBookInfo();
             }
         });
 
@@ -149,6 +152,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         }
     }
 
+    public void updateBookInfo() {
+        String quantityText = bookQuantity.getText().toString();
+        //Convert String to Integer variable
+        int quantityNumber = Integer.parseInt(quantityText);
+        String titleText = bookTitle.getText().toString();
+        //Create a content values
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_PRODUCT_NAME, titleText);
+        values.put(BookEntry.COLUMN_QUANTITY, quantityNumber);
+        //Update info in database
+        rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
+    }
 
 
 
