@@ -1,9 +1,13 @@
 package com.example.android.inventoryapp;
 
 import android.app.AlertDialog;
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,32 +24,36 @@ import com.example.android.inventoryapp.data.BookDbHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditProductDetails extends AppCompatActivity {
+public class EditProductDetails extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     //EditText field to add book title
     @BindView(R.id.addTitle)
-    EditText title;
+    EditText mTitle;
     //EditText field to add book author
     @BindView(R.id.addAuthor)
-    EditText author;
+    EditText mAuthor;
     //EditText field to add book price
     @BindView(R.id.addPrice)
-    EditText price;
+    EditText mPrice;
     //EditText field to add quantity of book in stock
     @BindView(R.id.addQuantity)
-    EditText quantity;
+    EditText mQuantity;
     //EditText field to add name of supplier for book
     @BindView(R.id.addSupplierName)
-    EditText supplierName;
+    EditText mSupplierName;
     //EditText field to add supplier's phone number
     @BindView(R.id.addSupplierNo)
-    EditText supplierNo;
+    EditText mSupplierNo;
     //Variable for rows affected when adding a new book
     int rowsAffected;
     //Database helper instance
     private BookDbHelper mDbHelper;
     //Variable for current book uri
     private Uri mCurrentBookUri;
+    //Loader constant
+    private static final int EXISTING_BOOK_LOADER = 0;
+    //Default for price fields
+    private static final double DEFAULT_PRICE = 0.00;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,12 +67,12 @@ public class EditProductDetails extends AppCompatActivity {
         //Variable for the writable database
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         //Get values from EditText fields
-        String titleString = title.getText().toString().trim();
-        String authorString = author.getText().toString().trim();
-        String priceDouble = price.getText().toString().trim();
-        String quantityInt = quantity.getText().toString().trim();
-        String supNameString = supplierName.getText().toString().trim();
-        String supPhoneString = supplierNo.getText().toString().trim();
+        String titleString = mTitle.getText().toString().trim();
+        String authorString = mAuthor.getText().toString().trim();
+        String priceDouble = mPrice.getText().toString().trim();
+        String quantityInt = mQuantity.getText().toString().trim();
+        String supNameString = mSupplierName.getText().toString().trim();
+        String supPhoneString = mSupplierNo.getText().toString().trim();
 
         //Parse numerical values accordingly
         Double itemPrice = 0.00;
@@ -142,6 +150,65 @@ public class EditProductDetails extends AppCompatActivity {
 
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+        String[] projection = {
+                BookEntry._ID,
+                BookEntry.COLUMN_PRODUCT_NAME,
+                BookEntry.COLUMN_AUTHOR_NAME,
+                BookEntry.COLUMN_PRICE,
+                BookEntry.COLUMN_QUANTITY,
+                BookEntry.COLUMN_SUPPLIER_NAME,
+                BookEntry.COLUMN_SUPPLIER_PHONE};
+        return new CursorLoader(this, mCurrentBookUri, projection, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        //Bail early if cursor is null or contains less than 1 row
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+        //Proceed with moving to the first row of the cursor and reading data from it
+        //(this should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
+            //Find the columns of the book attributes we want to display
+            int titleColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRODUCT_NAME);
+            int authorColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_AUTHOR_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
+            int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
+            int supPhoneIndex = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE);
+
+            //Extract out the value from the cursor for the given column index
+            String title = cursor.getString(titleColumnIndex);
+            String author = cursor.getString(authorColumnIndex);
+            double price = cursor.getDouble(priceColumnIndex);
+            int quantity = cursor.getInt(quantityColumnIndex);
+            String supplierName = cursor.getString(supplierColumnIndex);
+            String supplierPhone = cursor.getString(supPhoneIndex);
+
+            //Update views on screen with values from database
+            mTitle.setText(title);
+            mAuthor.setText(author);
+            mPrice.setText(Double.toString(price));
+            mQuantity.setText(Integer.toString(quantity));
+            mSupplierName.setText(supplierName);
+            mSupplierNo.setText(supplierPhone);
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        //If loader is invalidated, clear data from all input fields
+        mTitle.setText("");
+        mAuthor.setText("");
+        mPrice.setText(Double.toString(DEFAULT_PRICE));
+        mQuantity.setText(Integer.toString(EXISTING_BOOK_LOADER));
+        mSupplierName.setText("");
+        mSupplierNo.setText("");
+    }
 }
 
 //TODO Implement loader and callback methods

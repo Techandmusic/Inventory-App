@@ -118,10 +118,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 //TODO Setup Click listener for sale button
 //TODO Setup logic so that no negative quantities are displayed
-//TODO Setup Increase and Decrease quantity buttons respective clicl listeners
-//TODO Setup Delete Button click listener in product detail view
-//TODO Setup Order Button click listener in product detail view that uses a phone intent with supplier phone number
-//TODO Add ViewPager
-//TODO Add Button to activity_main.xml to ad inventory to database
-//TODO Add Loader and callbacks to activity
+
+
+
+
+
 

@@ -33,7 +33,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
     //Current uri
     private Uri mCurrentBookUri;
     //Loader ID for Details Activity
-    private static final int DETAILS_LOADER = 1;
+    private static final int DETAILS_LOADER = 0;
 
 
     @Override
@@ -49,6 +49,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
 
 
     }
+
+    //TODO Add onClickListeners for increase and decrease buttons
+    //TODO Add onClickListeners for order and delete buttons
 
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
