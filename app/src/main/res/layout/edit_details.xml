@@ -41,5 +41,13 @@
         android:hint="@string/supplier_phone_field"
         android:inputType="phone" />
 
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/medium_spacing"
+        android:text="@string/save_button_text" />
+
 </LinearLayout>
 

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -62,6 +63,13 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
         ButterKnife.bind(this);
         Intent intent = getIntent();
         mCurrentBookUri = intent.getData();
+        Button save = (Button) findViewById(R.id.saveButton);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveBook();
+            }
+        });
 
     }
 
