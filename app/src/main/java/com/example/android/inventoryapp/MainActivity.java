@@ -12,12 +12,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 import android.widget.AdapterView;
+import android.widget.Toast;
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //Database helper object
     private BookDbHelper mDbHelper;
@@ -27,11 +30,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private BookCursorAdapter mCursorAdapter;
     //Loader constant
     private static final int BOOK_LOADER = 0;
+    //TextView for Book Quantity
+    private TextView bookQuantity;
+    //TextView for book title
+    private TextView bookTitle;
+    //Uri variable
+    private Uri mCurrentBookUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bookQuantity = (TextView) findViewById(R.id.productQuantity);
+        bookTitle = (TextView) findViewById(R.id.productName);
 
         //Setup FAB to open EditProductDetails Fragment
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -70,12 +82,41 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
+        Button sale = (Button) findViewById(R.id.sale);
+        sale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subtractQuantity();
+                updateBookInfo();
+            }
+        });
+
+
+
         getLoaderManager().initLoader(BOOK_LOADER, null, this);
 
 
 
 
     }
+
+    public void subtractQuantity() {
+        //Get TextView text as a String variable
+        String quantityText = bookQuantity.getText().toString();
+        //Convert String to Integer variable
+        int quantityNumber = Integer.parseInt(quantityText);
+        //Add 1 to current TextView Text
+        int newQuantity = quantityNumber - 1;
+        if (newQuantity < 0) {
+            newQuantity = 0;
+        }
+        //Convert new number to a string
+        String newText = Integer.toString(newQuantity);
+        //Set the updated quantity text to the TextView
+        bookQuantity.setText(newText);
+    }
+
+
 
 
     private void insertData() {
@@ -90,6 +131,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, "BookWorld Distribution");
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, "(850)555-1234");
         long newRowID = db.insert(BookEntry.TABLE_NAME, null, values);
+    }
+
+    public void updateBookInfo() {
+        String quantityText = bookQuantity.getText().toString();
+        //Convert String to Integer variable
+        int quantityNumber = Integer.parseInt(quantityText);
+        String titleText = bookTitle.getText().toString();
+        //Create a content values
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_PRODUCT_NAME, titleText);
+        values.put(BookEntry.COLUMN_QUANTITY, quantityNumber);
+        //Update info in database
+        int rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
+        if (rowsAffected == 0) {
+            Toast.makeText(this, getString(R.string.save_error), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -116,8 +173,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 }
 
 
-//TODO Setup Click listener for sale button
-//TODO Setup logic so that no negative quantities are displayed
+
 
 
 
