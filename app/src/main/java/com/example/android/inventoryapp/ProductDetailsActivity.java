@@ -42,10 +42,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
     private static final int DETAILS_LOADER = 0;
     //Database Helper Instance
     private BookDbHelper mDbHelper;
-    //Variable for rows being deleted
-    private int rowsDeleted;
-    //Variable for rows updated
-    private int rowsAffected;
+
 
 
 
@@ -143,7 +140,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
 
     public void deleteBook() {
         if (mCurrentBookUri != null) {
-            rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
+            int rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
             if (rowsDeleted == 0) {
                 Toast.makeText(this, getString(R.string.delete_failed), Toast.LENGTH_SHORT).show();
             } else {
@@ -162,7 +159,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         values.put(BookEntry.COLUMN_PRODUCT_NAME, titleText);
         values.put(BookEntry.COLUMN_QUANTITY, quantityNumber);
         //Update info in database
-        rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
+        int rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
+        if (rowsAffected == 0) {
+            Toast.makeText(this, getString(R.string.save_error), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
