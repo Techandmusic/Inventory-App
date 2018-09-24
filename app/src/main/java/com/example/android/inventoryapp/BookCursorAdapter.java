@@ -5,22 +5,33 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Button;
 
+import com.example.android.inventoryapp.R;
 import com.example.android.inventoryapp.data.BookContract;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.example.android.inventoryapp.R.id.*;
 
 public class BookCursorAdapter extends CursorAdapter {
 
     //Text view bindings via butterknife
-    @BindView(R.id.productName)
+    @BindView(productName)
     TextView titleTextView;
-    @BindView(R.id.productPrice)
+    @BindView(productPrice)
     TextView priceTextView;
-    @BindView(R.id.productQuantity)
+    @BindView(productQuantity)
     TextView quantityTextView;
+    //Context variable
+    private Context mContext;
+    //Sale button declaration
+
 
 
     //Class constructor
@@ -33,9 +44,14 @@ public class BookCursorAdapter extends CursorAdapter {
         return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
     }
 
+
+
+
+
     //Implementation of bindView method
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        mContext = context;
         //Create int variables for column indices
         int nameColumnIndex = cursor.getColumnIndex(BookContract.BookEntry.COLUMN_PRODUCT_NAME);
         int priceColumnIndex = cursor.getColumnIndex(BookContract.BookEntry.COLUMN_PRICE);
@@ -49,5 +65,15 @@ public class BookCursorAdapter extends CursorAdapter {
         titleTextView.setText(bookTitle);
         priceTextView.setText(Double.toString(bookPrice));
         quantityTextView.setText(bookQuantity);
+
+
+
+
+
+
+
+
     }
+
+
 }

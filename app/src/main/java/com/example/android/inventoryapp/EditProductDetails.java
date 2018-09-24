@@ -57,6 +57,7 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.edit_details);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         mCurrentBookUri = intent.getData();
