@@ -74,8 +74,6 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
     }
 
     private void saveBook() {
-        //Variable for the writable database
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         //Get values from EditText fields
         String titleString = mTitle.getText().toString().trim();
         String authorString = mAuthor.getText().toString().trim();
@@ -112,9 +110,14 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supPhoneString);
 
         if (mCurrentBookUri == null) {
-            Uri newUri = this.getContentResolver().insert(BookEntry.CONTENT_URI, values);
+            Uri newUri = getContentResolver().insert(BookEntry.CONTENT_URI, values);
+            if (newUri == null) {
+                Toast.makeText(this, getString(R.string.save_error), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
+            }
         } else {
-            rowsAffected = this.getContentResolver().update(mCurrentBookUri, values, null, null);
+            rowsAffected = getContentResolver().update(mCurrentBookUri, values, null, null);
         }
 
         //Display toast message to show if save was successful or not
