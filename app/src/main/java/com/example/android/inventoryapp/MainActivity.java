@@ -91,21 +91,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    public void subtractQuantity() {
-        //Get TextView text as a String variable
-        String quantityText = bookQuantity.getText().toString();
-        //Convert String to Integer variable
-        int quantityNumber = Integer.parseInt(quantityText);
-        //Add 1 to current TextView Text
-        int newQuantity = quantityNumber - 1;
-        if (newQuantity < 0) {
-            newQuantity = 0;
-        }
-        //Convert new number to a string
-        String newText = Integer.toString(newQuantity);
-        //Set the updated quantity text to the TextView
-        bookQuantity.setText(newText);
-    }
+
 
 
     private void insertData() {

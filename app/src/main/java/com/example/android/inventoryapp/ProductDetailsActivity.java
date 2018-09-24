@@ -111,10 +111,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         int quantityNumber = Integer.parseInt(quantityText);
         //Add 1 to current TextView Text
         int newQuantity = quantityNumber + 1;
-        //Convert new number to a string
-        String newText = Integer.toString(newQuantity);
         //Set the updated quantity text to the TextView
-        bookQuantity.setText(newText);
+        bookQuantity.setText(newQuantity);
+        //Update the database with the new value
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_QUANTITY, newQuantity);
+        this.getContentResolver().update(mCurrentBookUri, values, null, null);
     }
 
     public void subtractQuantity() {
@@ -127,10 +129,13 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         if (newQuantity < 0) {
             newQuantity = 0;
         }
-        //Convert new number to a string
-        String newText = Integer.toString(newQuantity);
         //Set the updated quantity text to the TextView
-        bookQuantity.setText(newText);
+        bookQuantity.setText(newQuantity);
+        //Update database with new value
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_QUANTITY, newQuantity);
+        this.getContentResolver().update(mCurrentBookUri, values, null, null);
+
     }
 
     public void deleteBook() {
