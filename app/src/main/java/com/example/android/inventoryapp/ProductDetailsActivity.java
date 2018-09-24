@@ -9,10 +9,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.BookContract;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
+import com.example.android.inventoryapp.data.BookDbHelper;
+import com.example.android.inventoryapp.data.BookProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +39,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
     private Uri mCurrentBookUri;
     //Loader ID for Details Activity
     private static final int DETAILS_LOADER = 0;
+    //Database Helper Instance
+    private BookDbHelper mDbHelper;
+    //Variable for rows being deleted
+    private int rowsDeleted;
+
 
 
     @Override
@@ -44,14 +54,100 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         //Get intent with book data to display
         Intent intent = getIntent();
         mCurrentBookUri = intent.getData();
+
+
+        Button increaseQuantity = (Button) findViewById(R.id.increase);
+        increaseQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addQuantity();
+            }
+        });
+
+        Button decreaseQuantity = (Button) findViewById(R.id.decrease);
+        decreaseQuantity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subtractQuantity();
+            }
+        });
+
+
+
+
+
+
+        Button order = (Button) findViewById(R.id.order);
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String supplierCall = bookSupPhone.getText().toString();
+                Intent orderIntent = new Intent(Intent.ACTION_DIAL);
+                orderIntent.setData(mCurrentBookUri.parse("tel:" + supplierCall));
+                startActivity(orderIntent);
+            }
+        });
+
+
+
+        Button delete = (Button) findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteBook();
+            }
+        });
+
+
+
+
         //Initialize loader
         getLoaderManager().initLoader(DETAILS_LOADER, null, this);
 
 
     }
 
-    //TODO Add onClickListeners for increase and decrease buttons
-    //TODO Add onClickListeners for order and delete buttons
+    public void addQuantity() {
+        //Get TextView text as a String variable
+        String quantityText = bookQuantity.getText().toString();
+        //Convert String to Integer variable
+        int quantityNumber = Integer.parseInt(quantityText);
+        //Add 1 to current TextView Text
+        int newQuantity = quantityNumber + 1;
+        //Convert new number to a string
+        String newText = Integer.toString(newQuantity);
+        //Set the updated quantity text to the TextView
+        bookQuantity.setText(newText);
+    }
+
+    public void subtractQuantity() {
+        //Get TextView text as a String variable
+        String quantityText = bookQuantity.getText().toString();
+        //Convert String to Integer variable
+        int quantityNumber = Integer.parseInt(quantityText);
+        //Add 1 to current TextView Text
+        int newQuantity = quantityNumber - 1;
+        //Convert new number to a string
+        String newText = Integer.toString(newQuantity);
+        //Set the updated quantity text to the TextView
+        bookQuantity.setText(newText);
+    }
+
+    public void deleteBook() {
+        if (mCurrentBookUri != null) {
+            rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
+            if (rowsDeleted == 0) {
+                Toast.makeText(this, getString(R.string.delete_failed), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.delete_succesful), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+
+
+
 
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {

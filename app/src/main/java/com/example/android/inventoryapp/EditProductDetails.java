@@ -211,4 +211,4 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
     }
 }
 
-//TODO Implement loader and callback methods
+
