@@ -24,9 +24,11 @@
 
         </activity>
         <provider
-            android:authorities="com.example.android.inventoryapp"
+            android:authorities="com.example.android.inventoryapp.data.BookProvider"
             android:name=".data.BookProvider"
             android:exported="false"/>
+
+
     </application>
 
 </manifest>
