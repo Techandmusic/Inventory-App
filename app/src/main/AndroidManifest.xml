@@ -15,7 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditProductDetails">
+        <activity android:name=".EditProductDetails"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
 
 
         </activity>
@@ -24,8 +28,8 @@
 
         </activity>
         <provider
-            android:authorities="com.example.android.inventoryapp.data.BookProvider"
             android:name=".data.BookProvider"
+            android:authorities="com.example.android.inventoryapp."
             android:exported="false"/>
 
 
