@@ -14,24 +14,13 @@ import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.BookContract;
 
-import butterknife.BindView;
-
-import static com.example.android.inventoryapp.R.id.productName;
-import static com.example.android.inventoryapp.R.id.productPrice;
-import static com.example.android.inventoryapp.R.id.productQuantity;
-
 public class BookCursorAdapter extends CursorAdapter {
 
-    //Text view bindings via butterknife
-    @BindView(productName)
-    TextView titleTextView;
-    @BindView(productPrice)
-    TextView priceTextView;
-    @BindView(productQuantity)
-    TextView quantityTextView;
+
     //Context variable
     private Context mContext;
-    //Sale button declaration
+
+    //Initialize TextViews
 
 
     //Class constructor
@@ -49,6 +38,10 @@ public class BookCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         mContext = context;
+        //Declare and initialize TextViews
+        TextView titleTextView = view.findViewById(R.id.productName);
+        TextView priceTextView = view.findViewById(R.id.productPrice);
+        final TextView quantityTextView = view.findViewById(R.id.productQuantity);
         //Create int variables for column indices
         int idColumnIndex = cursor.getColumnIndex(BookContract.BookEntry._ID);
         int nameColumnIndex = cursor.getColumnIndex(BookContract.BookEntry.COLUMN_PRODUCT_NAME);
@@ -63,7 +56,7 @@ public class BookCursorAdapter extends CursorAdapter {
         //Set variables to TextViews
         titleTextView.setText(bookTitle);
         priceTextView.setText(Double.toString(bookPrice));
-        quantityTextView.setText(bookQuantity);
+        quantityTextView.setText(Integer.toString(bookQuantity));
 
         Button saleButton = (Button) view.findViewById(R.id.sale);
         saleButton.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +68,7 @@ public class BookCursorAdapter extends CursorAdapter {
                     int newQuantity = bookQuantity - 1;
                     ContentValues values = new ContentValues();
                     values.put(BookContract.BookEntry.COLUMN_QUANTITY, newQuantity);
-                    quantityTextView.setText(newQuantity);
+                    quantityTextView.setText(Integer.toString(newQuantity));
                     Uri currentUri = Uri.withAppendedPath(BookContract.BookEntry.CONTENT_URI, id);
                     mContext.getContentResolver().update(currentUri, values, null, null);
 
@@ -83,7 +76,6 @@ public class BookCursorAdapter extends CursorAdapter {
                 }
             }
         });
-
 
 
     }

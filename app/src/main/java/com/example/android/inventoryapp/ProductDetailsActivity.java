@@ -18,41 +18,35 @@ import android.widget.Toast;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class ProductDetailsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //Loader ID for Details Activity
     private static final int DETAILS_LOADER = 0;
-    //TextView for book title
-    @BindView(R.id.bookTitle)
-    TextView bookTitle;
-    //TextView for book author
-    @BindView(R.id.bookAuthor)
-    TextView bookAuthor;
-    //TextView for book price
-    @BindView(R.id.bookPrice)
-    TextView bookPrice;
-    //TextView for book quantity
-    @BindView(R.id.bookQuantity)
-    TextView bookQuantity;
-    //TextView for book supplier name
-    @BindView(R.id.bookSupplier)
-    TextView bookSupplier;
-    //TextView for book supplier phone number
-    @BindView(R.id.bookSupPhone)
-    TextView bookSupPhone;
+
     //Current uri
     private Uri mCurrentBookUri;
     //Database Helper Instance
     private BookDbHelper mDbHelper;
+    //TextView for book title
+    TextView bookTitle = findViewById(R.id.bookTitle);
+    //TextView for book author
+    TextView bookAuthor = findViewById(R.id.bookAuthor);
+    //TextView for book price
+    TextView bookPrice = findViewById(R.id.bookPrice);
+    //TextView for book quantity
+    TextView bookQuantity = findViewById(R.id.bookQuantity);
+    //TextView for book supplier name
+    TextView bookSupplier = findViewById(R.id.bookSupplier);
+    //TextView for book supplier phone number
+    TextView bookSupPhone = findViewById(R.id.bookSupPhone);
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_details);
-        ButterKnife.bind(this);
+
         //Get intent with book data to display
         Intent intent = getIntent();
         mCurrentBookUri = intent.getData();
@@ -112,7 +106,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
         //Add 1 to current TextView Text
         int newQuantity = quantityNumber + 1;
         //Set the updated quantity text to the TextView
-        bookQuantity.setText(newQuantity);
+        bookQuantity.setText(Integer.toString(newQuantity));
         //Update the database with the new value
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_QUANTITY, newQuantity);
@@ -130,7 +124,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements LoaderM
             newQuantity = 0;
         }
         //Set the updated quantity text to the TextView
-        bookQuantity.setText(newQuantity);
+        bookQuantity.setText(Integer.toString(newQuantity));
         //Update database with new value
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_QUANTITY, newQuantity);

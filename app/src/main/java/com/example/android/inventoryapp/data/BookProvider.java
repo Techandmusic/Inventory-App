@@ -182,7 +182,7 @@ public class BookProvider extends ContentProvider {
         }
     }
 
-    private int updateBook(Uri uri, ContentValues values, String selection, String[] selctionArgs) {
+    private int updateBook(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         if (values.containsKey(BookContract.BookEntry.COLUMN_PRODUCT_NAME)) {
             String title = values.getAsString(BookContract.BookEntry.COLUMN_PRODUCT_NAME);
             if (title == null) {
@@ -216,7 +216,7 @@ public class BookProvider extends ContentProvider {
         if (values.containsKey(BookContract.BookEntry.COLUMN_SUPPLIER_PHONE)) {
             String supplierPhone = values.getAsString(BookContract.BookEntry.COLUMN_SUPPLIER_PHONE);
             if (supplierPhone == null) {
-                throw new IllegalArgumentException("Please enter phone nuber for supplier");
+                throw new IllegalArgumentException("Please enter phone number for supplier");
             }
         }
 
@@ -226,7 +226,7 @@ public class BookProvider extends ContentProvider {
         //Otherwise get a writable database to update the data
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        int rowsUpdated = db.update(BookContract.BookEntry.TABLE_NAME, values, selection, selctionArgs);
+        int rowsUpdated = db.update(BookContract.BookEntry.TABLE_NAME, values, selection, selectionArgs);
         if (rowsUpdated != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }

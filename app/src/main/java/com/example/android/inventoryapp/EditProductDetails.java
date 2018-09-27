@@ -22,8 +22,8 @@ import android.widget.Toast;
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 import com.example.android.inventoryapp.data.BookDbHelper;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+
 
 public class EditProductDetails extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -32,23 +32,17 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
     //Default for price fields
     private static final double DEFAULT_PRICE = 0.00;
     //EditText field to add book title
-    @BindView(R.id.addTitle)
-    EditText mTitle;
+    EditText mTitle = findViewById(R.id.addTitle);
     //EditText field to add book author
-    @BindView(R.id.addAuthor)
-    EditText mAuthor;
+    EditText mAuthor = findViewById(R.id.addAuthor);
     //EditText field to add book price
-    @BindView(R.id.addPrice)
-    EditText mPrice;
+    EditText mPrice = findViewById(R.id.addPrice);
     //EditText field to add quantity of book in stock
-    @BindView(R.id.addQuantity)
-    EditText mQuantity;
+    EditText mQuantity = findViewById(R.id.addQuantity);
     //EditText field to add name of supplier for book
-    @BindView(R.id.addSupplierName)
-    EditText mSupplierName;
+    EditText mSupplierName = findViewById(R.id.addSupplierName);
     //EditText field to add supplier's phone number
-    @BindView(R.id.addSupplierNo)
-    EditText mSupplierNo;
+    EditText mSupplierNo = findViewById(R.id.addSupplierNo);
     //Variable for rows affected when adding a new book
     int rowsAffected;
     //Database helper instance
@@ -60,7 +54,7 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_details);
-        ButterKnife.bind(this);
+
         Intent intent = getIntent();
         mCurrentBookUri = intent.getData();
         Button save = (Button) findViewById(R.id.saveButton);
@@ -70,6 +64,53 @@ public class EditProductDetails extends AppCompatActivity implements LoaderManag
                 saveBook();
             }
         });
+
+        mDbHelper = new BookDbHelper(this);
+
+    }
+
+
+
+    private void addBook() {
+        //Get writable database
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        //Get values from EditText fields
+        String titleString = mTitle.getText().toString().trim();
+        String authorString = mAuthor.getText().toString().trim();
+        String priceDouble = mPrice.getText().toString().trim();
+        String quantityInt = mQuantity.getText().toString().trim();
+        String supNameString = mSupplierName.getText().toString().trim();
+        String supPhoneString = mSupplierNo.getText().toString().trim();
+
+        //Parse numerical values accordingly
+        Double itemPrice = 0.00;
+        if (!TextUtils.isEmpty(priceDouble)) {
+            itemPrice = Double.parseDouble(priceDouble);
+        }
+        int itemQuantity = 0;
+        if (!TextUtils.isEmpty(quantityInt)) {
+            itemQuantity = Integer.parseInt(quantityInt);
+        }
+        //Bail early if no data is present in EditText fields
+        if (mCurrentBookUri == null && TextUtils.isEmpty(titleString) && TextUtils.isEmpty(authorString) &&
+                TextUtils.isEmpty(priceDouble) && TextUtils.isEmpty(quantityInt) && TextUtils.isEmpty(supNameString) &&
+                TextUtils.isEmpty(supPhoneString)) {
+            return;
+        }
+
+        //Create a ContentValues object where column names are keys and
+        //book attributes are values
+        ContentValues values = new ContentValues();
+        //Add items to values
+        values.put(BookEntry.COLUMN_PRODUCT_NAME, titleString);
+        values.put(BookEntry.COLUMN_AUTHOR_NAME, authorString);
+        values.put(BookEntry.COLUMN_PRICE, itemPrice);
+        values.put(BookEntry.COLUMN_QUANTITY, itemQuantity);
+        values.put(BookEntry.COLUMN_SUPPLIER_NAME, supNameString);
+        values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supPhoneString);
+
+        //Use insert to add book to database
+        Uri newUri = getContentResolver().insert(BookEntry.CONTENT_URI, values);
 
     }
 

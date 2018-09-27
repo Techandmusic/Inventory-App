@@ -29,7 +29,7 @@
         </activity>
         <provider
             android:name=".data.BookProvider"
-            android:authorities="com.example.android.inventoryapp."
+            android:authorities="com.example.android.inventoryapp"
             android:exported="false"/>
 
 

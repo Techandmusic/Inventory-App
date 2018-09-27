@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onClick(View v) {
                 Intent editorIntent = new Intent(MainActivity.this, EditProductDetails.class);
                 startActivity(editorIntent);
+
             }
         });
 
